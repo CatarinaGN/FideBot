@@ -37,7 +37,7 @@ pg = st.navigation(
     }
 )
 #-- on all pages ----
-st.logo("FideBot\assets\logo.svg", size="large")
+st.logo(r"assets\logo.png", size="large")
 st.sidebar.text("Made by Group P for Business Cases with Data Science 24/25 NOVA IMS")
 
 pg.run()
