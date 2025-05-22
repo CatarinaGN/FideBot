@@ -10,22 +10,22 @@ main_page = st.Page(
     default=True
 )
 
-cluster_analysis_page = st.Page(
-    page="views/cluster_analysis.py",
-    title="Clusters Analysis",
-    icon="📊",
+fidebot_page = st.Page(
+    page="views/cluster_prediction.py",
+    title="FideBot",
+    icon="🤖",
 )
 
-cluster_prediction_page = st.Page(
-    page="views/cluster_prediction.py",
-    title="Clusters Prediction",
-    icon="🤖",
+note_page = st.Page(
+    page="views/cluster_analysis.py",
+    title="As tuas Notas",
+    icon="📋",
 )
 
 suggestions_page = st.Page(
     page="views/suggestions.py",
-    title="Your Suggestions",
-    icon="📋",
+    title="Sugestões",
+    icon="📩",
 )
 
 # --- Navigation Setup ----
@@ -33,7 +33,7 @@ suggestions_page = st.Page(
 pg = st.navigation(
     {
         "Home": [main_page],
-        "Analysis": [cluster_analysis_page, cluster_prediction_page, suggestions_page],
+        "Para ti": [fidebot_page, note_page, suggestions_page],
     }
 )
 #-- on all pages ----

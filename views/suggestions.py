@@ -3,55 +3,42 @@ import pandas as pd
 import os  # For checking file existence
 
 # Título da página
-st.title("Your Suggestions")
+st.title("Sugestões")
 
 # Selecionar nome
-name = st.selectbox("Select your name:", ["", "Alice", "Bob", "Charlie", "Dana", "Eve"])
+name = st.selectbox("Seleciona o teu nome:", ["", "Diana", "Jorge", "Francisco", "Catarina", "Pedro", "Joana", "Margarida", "Beatriz", "Teresa"])
 
 # Selecionar o assunto da sugestão
 subject = st.selectbox(
-    "Select the subject of your suggestion:",
-    ["", "Visualization Ideas", "Cluster Strategies Ideas"]
+    "Seleciona o assunto:",
+    ["", "Erros Fidebot", "Ideias", "Outros"]
 )
 
-# Se o assunto for "Cluster Strategies Ideas", exibe a lista de clusters
-cluster = None
-if subject == "Cluster Strategies Ideas":
-    cluster = st.selectbox(
-        "Select the cluster:",
-        ["", "Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4", "Cluster 5"]
-    )
-
 # Caixa de texto para a sugestão
-suggestion = st.text_area("Write your suggestion here:")
+suggestion = st.text_area("Escreve a tua sugestão:")
 
 # Submit Button
-if st.button("Submit Suggestion"):
+if st.button("Submeter"):
     # Validation
     if not name:
-        st.error("Please select your name.")
+        st.error("Por favor seleciona o teu nome.")
     elif not subject:
-        st.error("Please select the subject of your suggestion.")
-    elif subject == "Cluster Strategies Ideas" and not cluster:
-        st.error("Please select a cluster.")
+        st.error("Por favor seleciona o assunto.")
     elif not suggestion.strip():
-        st.error("Please write your suggestion.")
+        st.error("Por favor escreve a tua sugestão.")
     else:
         # Process and save the suggestion
-        st.success("Thank you for your suggestion! This topic will be discussed in the next meeting 😉")
+        st.success("Obrigada pela tua sugestão! 😉")
         st.write("### Summary of Your Input:")
-        st.write(f"- **Name:** {name}")
-        st.write(f"- **Subject:** {subject}")
-        if cluster:
-            st.write(f"- **Cluster:** {cluster}")
-        st.write(f"- **Suggestion:** {suggestion}")
+        st.write(f"- **Nome:** {name}")
+        st.write(f"- **Assunto:** {subject}")
+        st.write(f"- **Sugestão:** {suggestion}")
 
         # Prepare data
         data = {
-            "Name": [name],
-            "Subject": [subject],
-            "Cluster": [cluster] if cluster else [None],
-            "Suggestion": [suggestion]
+            "Nome": [name],
+            "Assunto": [subject],
+            "Sugestão": [suggestion]
         }
         df = pd.DataFrame(data)
 
