@@ -14,6 +14,7 @@ langwatch.setup(api_key=os.getenv("LANGWATCH_API_KEY"))
 supabase_url = os.getenv("SUPABASE_URL")
 supabase_key = os.getenv("SUPABASE_KEY")
 langflow_key = os.getenv("LANGFLOW_KEY")
+langflow_key = st.secrets["LANGFLOW_KEY"]
 
 supabase = create_client(supabase_url, supabase_key)
 
