@@ -62,13 +62,13 @@ def main_app(user_email):
     )
 
     fidebot_page = st.Page(
-        page="views/cluster_prediction.py",
+        page="views/FideBot.py",
         title="FideBot",
         icon="🤖",
     )
 
     note_page = st.Page(
-        page="views/cluster_analysis.py",
+        page="views/notes.py",
         title="As tuas Notas",
         icon="📋",
     )
