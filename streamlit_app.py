@@ -81,7 +81,7 @@ def main_app(user_email):
 
     # --- Sidebar content (only for logged in users) ---
     with st.sidebar:
-        st.logo(r"assets\logo.png", size="large")
+        st.logo("assets/logo.png", size="large")
         st.text("Made by Group P for Business Cases with Data Science course from NOVA IMS")
 
         # Push logout button to bottom using custom CSS
