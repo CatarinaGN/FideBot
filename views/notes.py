@@ -6,6 +6,9 @@ import os
 from dotenv import load_dotenv
 from uuid import uuid4
 
+# Then your other imports or logic...
+import streamlit.components.v1 as components
+
 # --- Carregar variáveis de ambiente ---
 load_dotenv()
 supabase_url = os.getenv("SUPABASE_URL")
@@ -22,8 +25,10 @@ user_email = st.session_state.user_email
 # --- Tabs ---
 tab1, tab2 = st.tabs(['🗒️ Caderno', '📌 Notas Guardadas'])
 
+
 with tab1:
     st.header("📝 Caderno de Notas")
+
 
     title = st.text_input("Título da nota")
     category = st.selectbox("Assunto / Categoria", ["Cliente", "Produto", "Ideia", "Outro"])
@@ -101,3 +106,13 @@ with tab2:
         )
     else:
         st.info("Ainda não guardaste nenhuma nota.")
+
+
+components.html("""
+    <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
+    <langflow-chat
+        window_title="Fidebot"
+        flow_id="c98ac3ec-d8e7-40c1-a8c4-775661f756a5"
+        host_url="http://localhost:7860">
+    </langflow-chat>
+""", height=800)

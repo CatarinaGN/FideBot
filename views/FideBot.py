@@ -14,7 +14,7 @@ langwatch.setup(api_key=os.getenv("LANGWATCH_API_KEY"))
 supabase_url = os.getenv("SUPABASE_URL")
 supabase_key = os.getenv("SUPABASE_KEY")
 langflow_key = os.getenv("LANGFLOW_KEY")
-langflow_key = st.secrets["LANGFLOW_KEY"]
+#langflow_key = st.secrets["LANGFLOW_KEY"]
 
 supabase = create_client(supabase_url, supabase_key)
 
@@ -52,15 +52,25 @@ else:
         st.session_state.current_chat_id = selected_chat_obj["id"]
         with st.expander("🗂️ Arquivar este chat"):
             if st.button("🗑️ Arquivar Chat"):
-                supabase.from_("chats").update({"archived": True}).eq("id", selected_chat_obj["id"]).execute()
+                chat_id_to_delete = selected_chat_obj["id"]
+            
+                # Apagar mensagens associadas
+                supabase.from_("messages").delete().eq("chat_id", chat_id_to_delete).execute()
+                
+                # Apagar o próprio chat
+                supabase.from_("chats").delete().eq("id", chat_id_to_delete).execute()
+                
+                # Resetar o estado
                 st.session_state.current_chat_id = None
+                st.success("✅ Chat e mensagens apagados com sucesso.")
                 st.rerun()
 
 # --- Mostrar mensagens ---
 chat_id = st.session_state.current_chat_id
 
 if chat_id:
-    msgs = supabase.from_("messages").select("*").eq("chat_id", chat_id).order("created_at").execute()
+    msgs = supabase.from_("messages").select("*").eq("chat_id", chat_id).eq("user_email", user_email).order("created_at").execute()
+
     chat_messages = msgs.data if msgs.data else []
 
     for msg in chat_messages:
@@ -133,6 +143,7 @@ if user_input := st.chat_input("Digite sua mensagem..."):
         supabase.from_("messages").insert({
             "id": str(uuid4()),
             "chat_id": chat_id,
+            "user_email": user_email,
             "role": "user",
             "content": user_input,
             "created_at": datetime.datetime.now().isoformat()
@@ -155,6 +166,3 @@ if user_input := st.chat_input("Digite sua mensagem..."):
             st.markdown(bot_reply)
     else:
         st.warning("Por favor, cria ou seleciona um chat primeiro.")
-
-
-
